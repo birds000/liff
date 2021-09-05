@@ -32,10 +32,10 @@
 
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
   <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
-  <button onclick="openWindow()">Open Window</button>
-  <button id="btnScanCode" onclick="scanCode()">Scan Code</button>
+  <!-- <button onclick="openWindow()">Open Window</button>
+  <button id="btnScanCode" onclick="scanCode()">Scan Code</button> -->
   <button id="btnLogOut" onclick="logOut()">Log Out</button>
-  <button id="btnClose" onclick="closed()">Close</button>
+  <!-- <button id="btnClose" onclick="closed()">Close</button> -->
 
   <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
   <script>
@@ -78,6 +78,7 @@
       })
     }
 
+    // บังคับเป็นเพื่อนกับบอท
     async function getFriendship() {
       const friend = await liff.getFriendship()
       document.getElementById("friendship").append(friend.friendFlag)
@@ -115,7 +116,7 @@
       document.getElementById("userId").append(profile.userId)
       document.getElementById("statusMessage").append(profile.statusMessage)
       document.getElementById("displayName").append(profile.displayName)
-      document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
+      // document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
       document.getElementById("idToken").append(liff.getIDToken())
     }
     
@@ -135,19 +136,19 @@
     }
 
     async function main() {
-      // liff.ready.then(() => {
-      //   document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-      //   if (liff.isLoggedIn()) {
-      //     getEnvironment()
-      //     getUserProfile()
-      //     getContext()
-      //     getFriendship()
-      //     createUniversalLink()
-      //   } else {
-      //     liff.login()
-      //   }
-      // })
       await liff.init({ liffId: "1656391327-JE3PW1PM" })
+      liff.ready.then(() => {
+        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+        if (liff.isLoggedIn()) {
+          getEnvironment()
+          getUserProfile()
+          getContext()
+          getFriendship()
+      //     createUniversalLink()
+        } else {
+          liff.login()
+        }
+      })
     }
     main()
   </script>
